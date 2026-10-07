@@ -1,0 +1,88 @@
+// Nội dung modal hướng dẫn theo định dạng import Word (HuongDanMauImport.tsx) — chữ sàn 14px (DS-A4)
+.huong-dan-mau {
+  h4 {
+    margin: 18px 0 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--xanh-dam);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  p,
+  li,
+  td,
+  th {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 4px;
+    padding-left: 20px;
+  }
+
+  &__khong li::marker {
+    color: var(--accent-red);
+  }
+
+  &__bang {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 4px;
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--bg-header-box);
+      font-weight: 600;
+    }
+  }
+
+  &__phu {
+    color: var(--text-sub);
+    font-size: 14px;
+  }
+
+  &__vi-du {
+    margin: 0;
+    padding: 10px 12px;
+    background: var(--bg-header-box);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: pre-wrap;
+    font-family: Consolas, 'Courier New', monospace;
+  }
+
+  &__tra-cuu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    font-size: 14px;
+
+    code {
+      display: inline-block;
+      min-width: 34px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+  }
+
+  &__muc {
+    margin-top: 4px;
+  }
+
+  &__muc-con {
+    padding-left: 18px;
+  }
+}

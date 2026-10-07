@@ -1,0 +1,135 @@
+.ct-cau-hoi {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__nut {
+    display: inline-flex;
+    gap: 8px;
+  }
+
+  &__noi-dung {
+    margin-bottom: 20px;
+  }
+
+  &__nhan-xet {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--accent-red);
+    border-radius: 6px;
+    background: rgba(200, 16, 46, 0.05);
+    color: var(--accent-red);
+    font-size: 14px;
+  }
+
+  &__phan-loai {
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  &__tabs {
+    padding: 0 16px;
+  }
+
+  &__tab-than {
+    padding-bottom: 16px;
+  }
+
+  &__goi-y-so-sanh {
+    color: var(--text-sub);
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  &__so-sanh {
+    margin-top: 16px;
+  }
+
+  &__thong-ke {
+    padding-top: 8px;
+  }
+
+  &__the-so {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+
+    .the-so {
+      min-width: 170px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-box);
+
+      &__nhan {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--text-sub);
+        margin-bottom: 4px;
+      }
+
+      &__gia-tri {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text);
+      }
+    }
+  }
+
+  &__bieu-do {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+
+    &-tieu-de {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+  }
+
+  &__icon-i {
+    color: var(--text-sub);
+    font-size: 14px;
+  }
+}
+
+// Modal chi tiết câu hỏi — cỡ XXL giữa màn hình, nút chức năng ở header, footer chỉ "Đóng"
+.ct-cau-hoi-modal {
+  .ant-modal-title {
+    // chừa chỗ nút ✕ của modal
+    padding-right: 40px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__tieu-de {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ant-modal-body {
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+  }
+
+  &__tabs .ant-tabs-nav {
+    margin-bottom: 16px;
+  }
+
+  &__man-thi {
+    min-height: 50vh;
+  }
+}

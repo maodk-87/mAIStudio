@@ -1,0 +1,51 @@
+/* Modal chèn media (khung tệp .tep-dinh-kem: xem trinh-xem-tai-lieu.scss) */
+
+.chen-media {
+  &__thanh {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  &__ten {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__chinh {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-sub);
+    font-size: 14px;
+  }
+
+  &__xem-truoc {
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-box);
+    background: var(--bg-page);
+    max-height: 62vh;
+    overflow: auto;
+
+    img,
+    video {
+      max-width: 100%;
+      border-radius: var(--radius);
+    }
+  }
+
+  &__khung-tep {
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-box);
+    overflow: hidden;
+    background: var(--bg-box);
+  }
+}

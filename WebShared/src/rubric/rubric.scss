@@ -1,0 +1,577 @@
+// Rubric chấm tự luận — trình soạn cây, bảng chấm, màn chấm 2 vùng.
+// Ưu tiên dễ đọc: chữ tiêu chí không cắt, ô nhập lớn, bài làm có vùng riêng phóng to được.
+
+$vien: var(--ant-color-border-secondary, #e5e7eb);
+$nen-nhat: var(--ant-color-fill-quaternary, #f7f8fa);
+$chinh: var(--ant-color-primary, #1677ff);
+$do: #cf1322;
+$xanh: #389e0d;
+$vang: #d48806;
+
+// ——————————— Trình soạn ———————————
+.trinh-soan-rubric {
+  border: 1px solid $vien;
+  border-radius: 10px;
+  background: #fff;
+
+  &__thanh {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid $vien;
+    background: $nen-nhat;
+    border-radius: 10px 10px 0 0;
+  }
+
+  &__tong {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 6px;
+    &.dat {
+      color: $xanh;
+      background: rgba(56, 158, 13, 0.08);
+    }
+    &.lech {
+      color: $do;
+      background: rgba(207, 19, 34, 0.08);
+    }
+  }
+
+  &__tieu-de-cot {
+    display: grid;
+    grid-template-columns: 1fr 112px 76px;
+    gap: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text-sub, #6b7280);
+    border-bottom: 1px solid $vien;
+  }
+
+  &__dong {
+    display: grid;
+    grid-template-columns: 1fr 112px 76px;
+    gap: 8px;
+    align-items: center;
+    min-height: 44px;
+    padding: 4px 14px;
+    border-bottom: 1px solid $vien;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: $nen-nhat;
+    }
+    &.chon {
+      background: rgba(22, 119, 255, 0.06);
+      box-shadow: inset 3px 0 0 $chinh;
+    }
+    &.co-loi {
+      box-shadow: inset 3px 0 0 $do;
+    }
+  }
+
+  &__noi-dung {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  &__thut {
+    flex: none;
+    align-self: stretch;
+    border-left: 1px dashed #d0d5dd;
+    margin-left: 6px;
+  }
+
+  &__ma {
+    flex: none;
+    min-width: 44px;
+    font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    font-size: 13px;
+    color: #475467;
+  }
+
+  &__loai {
+    flex: none;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    &.nhom {
+      background: #eef2ff;
+      color: #3538cd;
+    }
+    &.phuong-an {
+      background: #fdf2fa;
+      color: #c11574;
+    }
+    &.tieu-chi {
+      background: #ecfdf3;
+      color: #027a48;
+    }
+    &.tieu-chi-muc {
+      background: #fffaeb;
+      color: #b54708;
+    }
+    &.diem-tru {
+      background: #fef3f2;
+      color: #b42318;
+    }
+  }
+
+  &__mo-ta {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    input {
+      font-size: 14px;
+    }
+  }
+
+  &__toi-da {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    b {
+      font-size: 15px;
+    }
+  }
+
+  &__chi-tiet {
+    padding: 12px 14px 14px 60px;
+    border-bottom: 1px solid $vien;
+    background: #fbfcfe;
+  }
+
+  &__luoi {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px 16px;
+    label {
+      display: block;
+      font-size: 13px;
+      color: #475467;
+      margin-bottom: 4px;
+    }
+  }
+
+  // Ô chọn nhãn dài (Đơn vị kiến thức · chủ đề) chiếm 2 cột lưới
+  &__o-rong {
+    grid-column: span 2;
+    min-width: 0;
+  }
+
+  // Ô nhập nội dung dùng OEditor gọn: nhập công thức (Σ) + kéo giãn chiều cao ở góc dưới phải
+  &__o-nhap {
+    .editor-soan-thao__noi-dung {
+      resize: vertical;
+      overflow: auto;
+      min-height: 64px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+
+      .ProseMirror {
+        min-height: 100%;
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+
+    &:focus-within .editor-soan-thao__noi-dung {
+      border-color: var(--primary);
+    }
+
+    &--chi-doc {
+      padding: 7px 11px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-muted, #f7f8fa);
+    }
+  }
+
+  &__van-de {
+    padding: 10px 14px;
+    border-top: 1px solid $vien;
+    max-height: 220px;
+    overflow: auto;
+  }
+
+  &__van-de-dong {
+    display: flex;
+    gap: 8px;
+    padding: 3px 0;
+    cursor: pointer;
+    font-size: 13px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__goi-y-phim {
+    padding: 6px 14px 10px;
+    font-size: 12px;
+    color: var(--text-sub, #6b7280);
+    kbd {
+      font-size: 11px;
+      padding: 0 4px;
+      border: 1px solid #d0d5dd;
+      border-radius: 3px;
+      background: #fff;
+    }
+  }
+}
+
+// ——————————— Xem rubric (chỉ đọc, dạng hướng dẫn chấm) ———————————
+.xem-rubric {
+  font-size: 14px;
+  line-height: 1.55;
+
+  &__dong {
+    display: grid;
+    grid-template-columns: 1fr 88px;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px dashed $vien;
+  }
+  &__ma {
+    font-family: ui-monospace, Consolas, monospace;
+    color: #475467;
+    margin-right: 6px;
+  }
+  &__dap-an {
+    margin-top: 2px;
+    color: #475467;
+    font-size: 13px;
+  }
+  &__diem {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  &__muc {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+  }
+}
+
+// ——————————— Bảng chấm (vùng rubric của màn chấm) ———————————
+.bang-cham-rubric {
+  font-size: 14px;
+
+  &__nhom {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 12px 6px;
+    font-weight: 600;
+    color: #1d2939;
+    border-bottom: 1px solid $vien;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  &__nhom-diem {
+    flex: none;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: #344054;
+  }
+
+  &__la {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 14px;
+    align-items: start;
+    padding: 10px 12px;
+    border-bottom: 1px solid $vien;
+    border-left: 3px solid transparent;
+
+    &.trong {
+      background: #fffbeb;
+      border-left-color: #f79009;
+    }
+    &.dang-nhap {
+      background: rgba(22, 119, 255, 0.05);
+      border-left-color: $chinh;
+    }
+    &.nhap-lai {
+      background: #fef3f2;
+      border-left-color: $do;
+    }
+  }
+
+  &__mo-ta {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: #101828;
+    word-break: break-word;
+  }
+
+  &__ma {
+    font-family: ui-monospace, Consolas, monospace;
+    color: #667085;
+    font-size: 12.5px;
+    margin-right: 6px;
+  }
+
+  &__dap-an {
+    margin-top: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #f2f4f7;
+    color: #344054;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  &__nhap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    justify-self: end;
+
+    .o-diem {
+      width: 76px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .toi-da {
+      color: #667085;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+  }
+
+  &__nhanh-diem {
+    flex-wrap: wrap;
+    margin-right: 4px;
+  }
+
+  &__muc {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+  }
+
+  &__the-muc {
+    border: 1px solid $vien;
+    border-radius: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    background: #fff;
+    transition: border-color 0.15s, background 0.15s;
+    &:hover {
+      border-color: $chinh;
+    }
+    &.chon {
+      border-color: $chinh;
+      background: rgba(22, 119, 255, 0.08);
+      box-shadow: 0 0 0 1px $chinh inset;
+    }
+    .tieu-de {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+    .mo-ta {
+      font-size: 13px;
+      color: #475467;
+      margin-top: 2px;
+      line-height: 1.45;
+    }
+    kbd {
+      font-size: 11px;
+      padding: 0 4px;
+      border: 1px solid #d0d5dd;
+      border-radius: 3px;
+      margin-right: 4px;
+    }
+  }
+
+  &__phuong-an {
+    padding: 10px 12px;
+    border-bottom: 1px solid $vien;
+    background: #fcfcfd;
+  }
+
+  &__ghi-chu {
+    grid-column: 1 / -1;
+  }
+}
+
+// ——————————— Màn chấm 2 vùng (toàn màn hình) ———————————
+.man-cham-rubric {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  background: #eef1f5;
+
+  &__dau {
+    flex: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    padding: 8px 16px;
+    background: #fff;
+    border-bottom: 1px solid $vien;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+  }
+
+  &__phach {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  &__than {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    gap: 0;
+    padding: 10px;
+
+    &.doc {
+      flex-direction: column;
+    }
+  }
+
+  &__vung {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: #fff;
+    border: 1px solid $vien;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  &__thanh-vung {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 6px 10px;
+    border-bottom: 1px solid $vien;
+    background: $nen-nhat;
+    font-size: 13px;
+  }
+
+  &__cuon {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  &__bai-lam-anh {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    img {
+      display: block;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+      background: #fff;
+      transform-origin: top center;
+    }
+  }
+
+  &__bai-lam-chu {
+    padding: 18px 22px;
+    line-height: 1.75;
+    color: #101828;
+    white-space: pre-wrap;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  &__de-bai {
+    padding: 10px 14px;
+    border-bottom: 1px solid $vien;
+    background: #f9fafb;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  &__chia {
+    flex: none;
+    width: 10px;
+    cursor: col-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::after {
+      content: '';
+      width: 4px;
+      height: 48px;
+      border-radius: 2px;
+      background: #c7ccd4;
+    }
+    &:hover::after {
+      background: $chinh;
+    }
+    &.doc {
+      width: auto;
+      height: 10px;
+      cursor: row-resize;
+      &::after {
+        width: 48px;
+        height: 4px;
+      }
+    }
+  }
+
+  &__chan {
+    flex: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 8px 12px;
+    border-top: 1px solid $vien;
+    background: #fff;
+  }
+
+  &__tong {
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    b {
+      font-size: 20px;
+    }
+  }
+
+  &__dong-bo {
+    font-size: 13px;
+    &.cho {
+      color: $vang;
+    }
+    &.loi {
+      color: $do;
+    }
+    &.ok {
+      color: $xanh;
+    }
+  }
+}

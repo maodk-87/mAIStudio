@@ -1,0 +1,54 @@
+.bang-chuan {
+  &__phan-tren {
+    padding: 12px 16px 0;
+
+    /* Chỉ chứa GhiChuTrang (nội dung đã portal vào modal ❓) → không chiếm chỗ */
+    &:empty {
+      display: none;
+    }
+
+    > .ant-alert {
+      margin-bottom: 0 !important;
+    }
+
+    > .ant-alert + .ant-alert {
+      margin-top: 8px;
+    }
+  }
+
+  &__dong-loc {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__loc-phai {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__thanh-chon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: var(--primary-light);
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__header-tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .ant-table-pagination.ant-pagination {
+    padding: 0 16px;
+  }
+}

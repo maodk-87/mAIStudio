@@ -1,0 +1,14 @@
+// Nút "Đóng tất cả" nằm trên chồng notification góc phải (antd đặt top: 24px, right: 24px, z-index 2050)
+.nut-dong-tat-ca-thong-bao.ant-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 2051;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+// Đẩy chồng thông báo xuống để không che nút
+body.co-nhieu-thong-bao .ant-notification-topRight {
+  top: 60px !important;
+  transition: top 0.2s;
+}

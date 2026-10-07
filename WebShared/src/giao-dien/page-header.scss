@@ -1,0 +1,23 @@
+.page-header {
+  margin-bottom: 14px;
+
+  &__breadcrumb {
+    padding: 2px 0;
+  }
+
+  &__dong-chinh {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  &__tieu-de {
+    font-size: var(--font-size-tieu-de-trang);
+    font-weight: 600;
+    color: var(--xanh-dam);
+    margin: 0;
+  }
+}

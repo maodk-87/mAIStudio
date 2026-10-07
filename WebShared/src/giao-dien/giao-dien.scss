@@ -1,0 +1,511 @@
+// =============================================================================
+// Giao diện nền KHẢO THÍ SỐ — nạp MỘT lần ở index.tsx của mọi web, trước global.scss.
+// Đặc tả: docs/ui/0-design-system.md mục B (màu, chữ), E (box), G (modal), D7 (nhãn trạng thái).
+// Giá trị màu đồng bộ với `bangMau` (thuongHieu.ts) — sửa một nơi thì sửa cả hai.
+// =============================================================================
+
+@use "sass:list";
+
+:root {
+  // Màu thương hiệu (lấy từ icon sản phẩm)
+  --xanh-dam: #0b3f73;
+  --primary: #14599a;
+  --primary-hover: #2a70b0;
+  --primary-dark: #0d4a84;
+  --primary-light: #eaf2fa;
+  --primary-vien: #b7d0e8;
+  --xanh-troi: #5fa8da;
+  --gradient-thuong-hieu: linear-gradient(100deg, #0b3f73 0%, #11528f 55%, #1d69aa 100%);
+
+  // Màu ngữ nghĩa
+  --accent-red: #c62828;
+  --accent-gold: #d99a1e;
+  --success: #1f7a3d;
+  --warning: #b45309;
+  --info: #1769aa;
+
+  // Nền, viền, chữ
+  --bg-page: #f1f4f8;
+  --bg-box: #ffffff;
+  --bg-header-box: #f6f9fc;
+  --border: #dce3eb;
+  --border-strong: #c3cfdc;
+  --text: #1b2a3a;
+  --text-sub: #55657a;
+  --disabled: #98a4b3;
+  --disabled-bg: #eef1f5;
+
+  // Chữ: chính 15px, nhỏ nhất 14px (không dùng cỡ < 14px)
+  --font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+  --font-size-base: 15px;
+  --font-size-sub: 14px;
+  --font-size-tieu-de-box: 18px;
+  --font-size-tieu-de-trang: 22px;
+
+  // Hình khối
+  --radius: 6px;
+  --radius-box: 10px;
+  --shadow-box: 0 1px 2px rgba(11, 63, 115, 0.05), 0 2px 8px rgba(11, 63, 115, 0.05);
+  --khoang-trang: 20px; // lề nội dung trang (trái-phải-trên-dưới)
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text);
+  background: var(--bg-page);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--primary);
+}
+
+// ---- Chữ ------------------------------------------------------------------
+// Chữ diễn giải: nhỏ nhất 14px, màu phụ
+.chu-dien-giai {
+  font-size: var(--font-size-sub);
+  color: var(--text-sub);
+}
+
+// Option select 2 dòng (DS-C6)
+.option-2-dong {
+  line-height: 1.35;
+  padding: 2px 0;
+
+  .dong-ten {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .dong-mo-ta {
+    font-size: 14px;
+    color: var(--text-sub);
+  }
+}
+
+// Label form đậm 500 (DS-C1)
+.ant-form-item-label > label {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.ant-typography-secondary,
+.ant-form-item-explain,
+.ant-form-item-extra {
+  font-size: max(14px, 1em);
+}
+
+// Bảng: hàng click được
+.hang-click {
+  cursor: pointer;
+}
+
+// Tên đối tượng trong bảng (click mở chi tiết)
+.ten-doi-tuong {
+  color: var(--primary);
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Hàng nhiều ô form ngang nhau (tự xuống dòng ở màn hẹp)
+.hang-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+
+  > * {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+// ---- Focus & thanh cuộn -------------------------------------------------------
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c3cdd9;
+  border-radius: 6px;
+
+  &:hover {
+    background: #a5b3c3;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+// ---- Icon: to, rõ, cân với cỡ chữ (chỉ bộ Outlined của @ant-design/icons) ------
+.anticon svg {
+  shape-rendering: geometricPrecision;
+}
+
+.ant-btn {
+  // Icon nút lớn hơn chữ một chút để nhìn rõ nét
+  > .anticon,
+  .ant-btn-icon > .anticon {
+    font-size: 17px;
+  }
+
+  &.ant-btn-sm > .anticon,
+  &.ant-btn-sm .ant-btn-icon > .anticon {
+    font-size: 15px;
+  }
+
+  &.ant-btn-lg > .anticon,
+  &.ant-btn-lg .ant-btn-icon > .anticon {
+    font-size: 19px;
+  }
+}
+
+.ant-dropdown-menu-item .ant-dropdown-menu-item-icon,
+.ant-dropdown-menu-item > .anticon {
+  font-size: 17px;
+}
+
+.ant-dropdown-menu-item {
+  font-size: 15px;
+  padding: 8px 14px !important;
+}
+
+.ant-tabs-tab .anticon {
+  font-size: 17px;
+}
+
+.ant-breadcrumb .anticon {
+  font-size: 15px;
+}
+
+// ---- Nhãn trạng thái (Tag): viền đậm · nền nhạt · chữ đậm cùng tông (DS-D7) ----
+$mau-nhan: (
+  // tên preset antd: (viền, nền, chữ)
+  "success": (#3a9a5c, #eaf6ee, #14532d),
+  "green": (#3a9a5c, #eaf6ee, #14532d),
+  "processing": (#3a7cc0, #eaf2fb, #0d3f73),
+  "blue": (#3a7cc0, #eaf2fb, #0d3f73),
+  "warning": (#d98a14, #fff5e3, #7a3d06),
+  "orange": (#df7a1c, #fff2e5, #7c3805),
+  "gold": (#c9961a, #fff8e0, #6b4a00),
+  "error": (#d24848, #fdeeee, #8e1b1b),
+  "red": (#d24848, #fdeeee, #8e1b1b),
+  "volcano": (#d4582a, #fdf0ea, #7f2a0c),
+  "magenta": (#c0397a, #fcedf4, #7a1b4b),
+  "purple": (#7b4bc4, #f3eefc, #472483),
+  "geekblue": (#4a63c9, #eef1fc, #26357a),
+  "cyan": (#138a9c, #e6f5f7, #0b4f5a),
+  "lime": (#6a9a1f, #f2f8e6, #3b5710),
+  "default": (#9aa7b6, #f3f5f8, #334155)
+);
+
+.ant-tag {
+  font-size: 14px;
+  line-height: 22px;
+  padding-inline: 9px;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid #9aa7b6;
+  background: #f3f5f8;
+  color: #334155;
+
+  .anticon {
+    font-size: 14px;
+  }
+}
+
+@each $ten, $bo in $mau-nhan {
+  .ant-tag.ant-tag-#{$ten}:not(.ant-tag-disabled) {
+    &.ant-tag-outlined,
+    &.ant-tag-filled {
+      border: 1px solid list.nth($bo, 1);
+      background: list.nth($bo, 2);
+      color: list.nth($bo, 3);
+    }
+  }
+}
+
+.ant-badge-status-text {
+  font-size: 14px;
+}
+
+// ---- Breadcrumb: dòng trên cùng của trang ---------------------------------------
+.ant-breadcrumb {
+  font-size: 14px;
+
+  a {
+    border-radius: 4px;
+  }
+}
+
+// ---- Modal: 3 phần header / body / footer; rộng tối thiểu 840px (DS-G) ----------
+// Modal nhỏ hơn 840 (kể cả mặc định 520 và modal xác nhận) tự nâng lên 840;
+// modal đặt width lớn hơn giữ nguyên. Màn hẹp: không vượt khung nhìn.
+.ant-modal {
+  min-width: min(840px, calc(100vw - 32px));
+}
+
+// Tăng độ ưu tiên (.ant-modal-root) để thắng style CSS-in-JS của antd
+.ant-modal-root .ant-modal {
+  .ant-modal-container {
+    padding: 0;
+  }
+
+  // Header: nền nhạt, kẻ dưới
+  .ant-modal-header {
+    margin: 0;
+    padding: 16px 56px 16px 24px;
+    background: var(--bg-header-box);
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--radius-box) var(--radius-box) 0 0;
+  }
+
+  // Body
+  .ant-modal-body {
+    padding: 20px 24px;
+  }
+
+  // Footer: nền nhạt, kẻ trên — mọi nút chức năng nằm ở đây
+  .ant-modal-footer {
+    margin: 0;
+    padding: 12px 24px;
+    background: var(--bg-header-box);
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 var(--radius-box) var(--radius-box);
+  }
+
+  // Modal xác nhận tự dựng 3 phần bên trong body (xem .ant-modal-confirm bên dưới)
+  &.ant-modal-confirm .ant-modal-body {
+    padding: 0;
+  }
+}
+
+.ant-modal-close {
+  top: 14px;
+  inset-inline-end: 14px;
+  width: 32px;
+  height: 32px;
+
+  .anticon {
+    font-size: 18px;
+  }
+}
+
+.ant-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .anticon {
+    font-size: 20px;
+    color: var(--primary);
+  }
+}
+
+.ant-modal-body {
+  font-size: 15px;
+}
+
+.ant-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  > .ant-btn + .ant-btn {
+    margin-inline-start: 0 !important;
+  }
+}
+
+// Modal xác nhận (modal.confirm/info/warning/error): dựng lại đủ 3 phần như modal thường.
+// DOM antd v6: .ant-modal-body > .ant-modal-confirm-body-wrapper >
+//   .ant-modal-confirm-body > [icon] + .ant-modal-confirm-paragraph > (title, content)
+//   .ant-modal-confirm-btns
+.ant-modal-confirm {
+  .ant-modal-confirm-body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 12px;
+
+    > .anticon {
+      grid-row: 1;
+      grid-column: 1;
+      margin: 0 0 0 24px;
+      font-size: 22px;
+    }
+  }
+
+  .ant-modal-confirm-paragraph {
+    display: contents;
+  }
+
+  // Header
+  .ant-modal-confirm-title {
+    grid-row: 1;
+    grid-column: 1 / -1;
+    padding: 16px 56px 16px 58px;
+    background: var(--bg-header-box);
+    border-bottom: 1px solid var(--border);
+    border-radius: 10px 10px 0 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .ant-modal-confirm-body > .anticon {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ant-modal-confirm-body-no-icon .ant-modal-confirm-title,
+  .ant-modal-confirm-body:not(:has(> .anticon)) .ant-modal-confirm-title {
+    padding-left: 24px;
+  }
+
+  // Body
+  .ant-modal-confirm-content {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    max-width: none;
+    margin: 0;
+    padding: 20px 24px;
+    font-size: 15px;
+  }
+
+  // Footer
+  .ant-modal-confirm-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 0;
+    padding: 12px 24px;
+    background: var(--bg-header-box);
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 10px 10px;
+
+    .ant-btn + .ant-btn {
+      margin-inline-start: 0;
+    }
+  }
+}
+
+// ---- Drawer: header/footer tách rõ như modal --------------------------------------
+.ant-drawer-header {
+  background: var(--bg-header-box);
+}
+
+.ant-drawer-title {
+  font-size: 18px;
+}
+
+.ant-drawer-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background: var(--bg-header-box);
+}
+
+// ---- Bảng ------------------------------------------------------------------------
+.ant-table-thead > tr > th {
+  font-weight: 600 !important;
+}
+
+.ant-pagination {
+  font-size: 15px;
+}
+
+// ---- Card antd trong trang: cùng ngôn ngữ với box nội dung --------------------------
+.ant-card-bordered {
+  border-color: var(--border);
+}
+
+.ant-card-head {
+  border-bottom-color: var(--border);
+}
+
+// ---- Thông báo ---------------------------------------------------------------------
+.ant-message-notice-content,
+.ant-notification-notice-description {
+  font-size: 15px;
+}
+
+.ant-tooltip-inner {
+  font-size: 14px;
+}
+
+// ---- Header các web: chip tên hệ thống cạnh logo ---------------------------------------
+.ant-tag.nhan-he-thong {
+  margin-inline: 6px 0;
+  padding: 2px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  line-height: 22px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+
+  // Hệ bảo mật cao (NHCH, QLTHI, CoreAdmin): nền đỏ, viền sáng
+  &.nhan-he-thong--bao-mat {
+    background: #b3261e;
+    border-color: #ff9e98;
+  }
+}
+
+// Ô chọn đặt trên header nền tối (năm học, đợt, không gian…): nền trong suốt, chữ trắng.
+// antd v6: nền/viền nằm ngay trên .ant-select (không còn .ant-select-selector)
+header:is(.header-chinh, .kt-layout__header, .ht-layout__header, .ca-layout__header) {
+  .ant-select.ant-select-outlined {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+
+    &:hover,
+    &.ant-select-focused {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.75);
+    }
+
+    .ant-select-suffix,
+    .ant-select-prefix,
+    .ant-select-content,
+    .ant-select-input,
+    .ant-select-placeholder {
+      color: #fff;
+    }
+
+    .ant-select-placeholder {
+      opacity: 0.75;
+    }
+  }
+}

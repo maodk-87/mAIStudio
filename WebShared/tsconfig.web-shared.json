@@ -1,0 +1,36 @@
+{
+  "//": [
+    "tsconfig nền cho tsconfig.app.json của MỌI web dùng @web-shared (\"extends\").",
+    "${configDir} = thư mục của web đang kế thừa, nên đường dẫn đúng cho từng web.",
+    "Mã package nằm ngoài thư mục web: các thư viện nó dùng được ánh xạ về node_modules",
+    "CỦA WEB — danh sách phải khớp PHU_THUOC_WEB_SHARED trong cau-hinh-vite.ts.",
+    "Web kế thừa KHÔNG khai lại compilerOptions.paths (sẽ ghi đè toàn bộ danh sách này)."
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["${configDir}/src/*"],
+      "@web-shared/*": ["${configDir}/../WebShared/src/*"],
+
+      "react": ["${configDir}/node_modules/@types/react"],
+      "react/*": ["${configDir}/node_modules/@types/react/*"],
+      "react-dom": ["${configDir}/node_modules/@types/react-dom"],
+      "react-dom/*": ["${configDir}/node_modules/@types/react-dom/*"],
+      "react-router-dom": ["${configDir}/node_modules/react-router-dom"],
+      "axios": ["${configDir}/node_modules/axios"],
+      "antd": ["${configDir}/node_modules/antd"],
+      "antd/*": ["${configDir}/node_modules/antd/*"],
+      "@ant-design/icons": ["${configDir}/node_modules/@ant-design/icons"],
+      "katex": ["${configDir}/node_modules/katex"],
+      "jszip": ["${configDir}/node_modules/jszip"],
+      "docx-preview": ["${configDir}/node_modules/docx-preview"],
+      "pptx-preview": ["${configDir}/node_modules/pptx-preview"],
+
+      "@tiptap/*": ["${configDir}/node_modules/@tiptap/*"],
+      "mathlive": ["${configDir}/node_modules/mathlive"],
+      "dompurify": ["${configDir}/node_modules/dompurify"],
+      "mathml-to-latex": ["${configDir}/node_modules/mathml-to-latex"],
+      "recharts": ["${configDir}/node_modules/recharts"],
+      "@microsoft/signalr": ["${configDir}/node_modules/@microsoft/signalr"]
+    }
+  }
+}

@@ -1,0 +1,155 @@
+.xtch {
+  &__thanh-theme {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+  }
+
+  &__khung {
+    background: var(--bg-box);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  // Theme theo cấp học — đổi cỡ chữ/kích thước vùng chạm
+  &--tih .xtch__khung {
+    font-size: 20px;
+    .xtch__pa { padding: 14px 16px; }
+  }
+  &--thcs .xtch__khung { font-size: 17px; }
+  &--thpt .xtch__khung { font-size: 16px; }
+
+  &__de-bai {
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  &__phuong-an {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__pa {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    &--dung {
+      border-color: var(--success);
+      background: rgba(46, 125, 50, 0.06);
+      .xtch__pa-ky-tu {
+        background: var(--success);
+        border-color: var(--success);
+        color: #fff;
+      }
+    }
+  }
+
+  &__pa-ky-tu {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-sub);
+  }
+
+  &__pa-noi-dung { flex: 1; }
+
+  &__pa-icon-dung {
+    color: var(--success);
+    font-size: 18px;
+    margin-top: 4px;
+  }
+
+  &__ds4y {
+    display: flex;
+    flex-direction: column;
+
+    &-hang {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      &:last-child { border-bottom: none; }
+    }
+
+    &-y { flex: 1; }
+
+    &-chon {
+      display: inline-flex;
+      gap: 8px;
+      span {
+        padding: 2px 12px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        font-size: 14px;
+        color: var(--text-sub);
+        &.dung {
+          border-color: var(--success);
+          color: var(--success);
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  &__cau-con {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &-item {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    &-ten {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+  }
+
+  &__trong {
+    color: var(--text-sub);
+    font-style: italic;
+  }
+
+  &__goi-y {
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: var(--primary-light);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  // Kiểu hiển thị chia 2 cột khi làm bài
+  &__chia {
+    display: flex;
+    gap: 20px;
+
+    &-trai { border-right: 1px solid var(--border); padding-right: 20px; }
+    &-phai { flex: 1; }
+
+    &--trai-40 .xtch__chia-trai { flex: none; width: 40%; }
+    &--trai-50 .xtch__chia-trai { flex: none; width: 50%; }
+    &--trai-60 .xtch__chia-trai { flex: none; width: 60%; }
+  }
+}
+
+/* Nút loa bản đọc đề bài (Khối 1–3) */
+.xtch__ban-doc {
+  margin-bottom: 8px;
+}

@@ -1,0 +1,25 @@
+// Nội dung câu hỏi đầy đủ trong ô bảng: gói trong độ rộng cột, tự xuống dòng
+.tom-tat-cau-hoi--day-du {
+  display: block;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
+  // Công thức KaTeX được ngắt dòng tại phép toán/quan hệ khi dài hơn cột
+  .katex {
+    white-space: normal;
+  }
+
+  .katex-html {
+    white-space: normal;
+  }
+
+  // Không hiển thị ảnh, âm thanh, video, tệp trong danh sách
+  img,
+  audio,
+  video,
+  [data-tep] {
+    display: none;
+  }
+}
